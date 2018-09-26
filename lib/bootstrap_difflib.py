@@ -1,6 +1,5 @@
-
-
 import difflib
+from utils import FormatDict
 
 
 _file_template = """
@@ -10,9 +9,10 @@ _file_template = """
 <html>
 
 <head>
-    <meta http-equiv="Content-Type"Bo
+    <meta http-equiv="Content-Type"
           content="text/html; charset=%(charset)s" />
     <title></title>
+    <link rel="stylesheet" type="text/css" href="%(bootstrap_source)s">
     <style type="text/css">%(styles)s
     </style>
 </head>
@@ -24,6 +24,8 @@ _file_template = """
 </html>"""
 
 _styles = """
+        .table td {padding: 0;}
+        .table th {padding: 0;} 
         table.diff {font-family:Courier; border:medium;}
         .diff_header {background-color:#e0e0e0}
         td.diff_header {text-align:right}
@@ -33,7 +35,7 @@ _styles = """
         .diff_sub {background-color:#ffaaaa}"""
 
 _table_template = """
-    <table class="table" id="difflib_chg_%(prefix)s_top"
+    <table class="diff %(bootstrap_table_class)s" id="difflib_chg_%(prefix)s_top"
            cellspacing="0" cellpadding="0" rules="groups" >
         <colgroup></colgroup> <colgroup></colgroup> <colgroup></colgroup>
         <colgroup></colgroup> <colgroup></colgroup> <colgroup></colgroup>
@@ -43,22 +45,19 @@ _table_template = """
     </table>"""
 
 
-
 class BootstrapHtmlDiff(difflib.HtmlDiff):
-    _file_template = _file_template
+    """A simple wrapper for the DiffLib that makes it useful with Bootstrap."""
     _styles = _styles
-    _table_template = _table_template
-    _default_prefix = 0
 
-    def make_file(self, *args, **kwargs):
-        return super(BootstrapHtmlDiff, self).make_file(*args, **kwargs)
+    def __init__(self, bootstrap_source, bootstrap_table_class="table", *args, **kwargs):
+        """
+        Behaves exactly as the HtmlDiff class, but requires a Bootstrap source.
 
-    def make_table(self, *args, **kwargs):
-        kwargs.setdefault('context', True)
-        kwargs.setdefault('numlines', 1)
-        return super(BootstrapHtmlDiff, self).make_table(*args, **kwargs)
-
-
-d = BootstrapHtmlDiff()
-
-
+        :param bootstrap_source: URL to your bootstrap source.
+        :param bootstrap_table_class: Name of the bootstrap class to use, defaults to table.
+        :param args: See superclass
+        :param kwargs: See superclass
+        """
+        self._file_template = _file_template % FormatDict(bootstrap_source=bootstrap_source)
+        self._table_template = _table_template % FormatDict(bootstrap_table_class=bootstrap_table_class)
+        super(BootstrapHtmlDiff, self).__init__(*args, **kwargs)
