@@ -1,6 +1,6 @@
 import difflib
 
-from lib.utils import FormatDict
+from bootstrap_difflib.utils import FormatDict
 
 
 _file_template = """

@@ -1,6 +1,6 @@
 import unittest
 
-from lib.bootstrap_difflib import BootstrapHtmlDiff
+from bootstrap_difflib.bootstrap_difflib import BootstrapHtmlDiff
 
 
 class TestBootstrapDiffLib(unittest.TestCase):

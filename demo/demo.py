@@ -1,4 +1,4 @@
-from lib.bootstrap_difflib import BootstrapHtmlDiff
+from bootstrap_difflib.bootstrap_difflib import BootstrapHtmlDiff
 
 print(__name__)
 if __name__ == "__main__":

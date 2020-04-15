@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="bootstrap-difflib",
-    version="0.0.1",
+    version="0.0.3",
     author="Thomas Holder",
     author_email="tdjholder@gmail.com",
     description="Making the output of DiffLib Bootstrap compatible",
