@@ -1,5 +1,6 @@
 import difflib
-from utils import FormatDict
+
+from lib.utils import FormatDict
 
 
 _file_template = """
